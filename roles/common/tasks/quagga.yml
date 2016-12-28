@@ -12,4 +12,3 @@
     line: "bgpd=yes"
     regexp: "bgpd="
   notify: restart quagga service
-
