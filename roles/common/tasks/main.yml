@@ -4,6 +4,7 @@
     dest: /etc/quagga/daemons
     line: "zebra=yes"
     regexp: "zebra=no"
+    state: absent
   notify: restart quagga service
 
 - name: Enable Quagga BGP
@@ -11,5 +12,6 @@
     dest: /etc/quagga/daemons
     line: "bgpd=yes"
     regexp: "bgpd=no"
+    state: absent
   notify: restart quagga service
 
