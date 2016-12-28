@@ -1,5 +1,12 @@
 ---
-- name: Enable BGP
+- name: Enable Quagga Zebra
+  lineinfile:
+    dest: /etc/quagga/daemons
+    line: "zebra=yes"
+    regexp: "zebra=no"
+  notify: restart quagga service
+
+- name: Enable Quagga BGP
   lineinfile:
     dest: /etc/quagga/daemons
     line: "bgpd=yes"
