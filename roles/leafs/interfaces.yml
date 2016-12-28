@@ -1,0 +1,10 @@
+---
+- name: Enable Eth0 for dhcp
+  blockinfile:
+    dest: /etc/network/interfaces
+    marker: "## {mark} Ansible Managed Configuration ##"
+    content: |
+      auto swp1
+      iface swp
+    backup: yes
+    validate: ifreload -a -s %s
