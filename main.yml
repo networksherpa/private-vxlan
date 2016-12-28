@@ -2,6 +2,7 @@
 - hosts: leafs
   become: yes
   roles:
-    - common
+    - common\tasks\quagga.yml
+    - leafs\tasks\interfaces.yml
   handlers:
     - include: handlers/main.yml
