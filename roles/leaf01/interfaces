@@ -1,0 +1,44 @@
+#########
+## Configured by Ansible
+#########
+
+# Loopback interface
+auto lo
+iface lo inet loopback
+  address 10.1.1.1/32
+  alias loopback interface
+
+# Management interface
+auto eth0
+iface eth0 inet dhcp
+  alias management interface
+
+# Port to Spine01
+auto swp51
+iface swp51
+  alias to Spine01
+
+# Port to Spine02
+auto swp52
+iface swp52
+  alias to Spine02
+
+# Port to Leaf02
+auto swp49
+iface swp49
+  alias to Leaf02
+
+# Port to Leaf02
+auto swp50
+iface swp50
+  alias to Leaf02
+
+# Port to Server01
+auto swp1
+iface swp1
+  alias to Server01
+
+# Port to Server02
+auto swp2
+iface swp2
+  alias to Server02
