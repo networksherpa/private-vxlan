@@ -11,7 +11,7 @@
   lineinfile:
     dest: /etc/quagga/daemons
     line: "bgpd=yes"
-    regexp: "bgpd=no"
+    regexp: "bgpd="
     state: absent
   notify: restart quagga service
 
