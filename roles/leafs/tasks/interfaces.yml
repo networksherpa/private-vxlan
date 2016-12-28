@@ -2,7 +2,7 @@
 - name: Enable Eth0 for dhcp
   blockinfile:
     dest: /etc/network/interfaces
-    marker: "# eth0"
+    marker: "# {mark} eth0"
     content: |
       auto eth0
       iface eth0 inet dhcp
