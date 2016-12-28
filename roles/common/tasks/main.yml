@@ -1,0 +1,8 @@
+---
+- name: Enable BGP
+  lineinfile:
+    dest: /etc/quagga/daemons
+    line: "bgpd=yes"
+    regexp: "bgpd=no"
+  notify: restart quagga service
+
