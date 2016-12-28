@@ -3,7 +3,7 @@
   lineinfile:
     dest: /etc/quagga/daemons
     line: "zebra=yes"
-    regexp: "zebra=no"
+    regexp: "zebra="
   notify: restart quagga service
 
 - name: Enable Quagga BGP
