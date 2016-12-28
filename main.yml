@@ -1,0 +1,7 @@
+---
+- hosts: leafs
+  become: yes
+  roles:
+    - common
+  handlers:
+    - include: handlers/main.yml
