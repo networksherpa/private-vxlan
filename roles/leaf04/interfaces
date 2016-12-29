@@ -16,15 +16,19 @@ auto eth0
 iface eth0 inet dhcp
   alias management interface
 
-# Port to Spine01
-auto swp51
-iface swp51
-  alias to Spine01
+# Port to Server03
+auto swp1
+iface swp1
+  alias to Server03
+  # This is required for Vagrant only
+  post-up ip link set swp1 promisc on
 
-# Port to Spine02
-auto swp52
-iface swp52
-  alias to Spine02
+# Port to Server04
+auto swp2
+iface swp2
+  alias to Server04
+  # This is required for Vagrant only
+  post-up ip link set swp2 promisc on
 
 # Port to Leaf03
 auto swp49
@@ -40,24 +44,24 @@ iface swp50
   # This is required for Vagrant only
   post-up ip link set swp50 promisc on
 
-# Port to Server03
-auto swp1
-iface swp1
-  alias to Server03
-  bridge-access 13
+# Port to Spine01
+auto swp51
+iface swp51
+  alias to Spine01
 
-# Port to Server04
-auto swp2
-iface swp2
-  alias to Server04
-  bridge-access 24
+# Port to Spine02
+auto swp52
+iface swp52
+  alias to Spine02
 
 # CLAG Peerlink bond
 auto peerlink
 iface peerlink
   bond-slaves swp49 swp50
 
-# CLAG Peerlink L2 interface
+# CLAG Peerlink L2 interface.
+# This creates VLAN 4094 that only lives on the peerlink bond
+# No other interface will be aware of VLAN 4094
 auto peerlink.4094
 iface peerlink.4094
   address 169.254.1.2/30

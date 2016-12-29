@@ -16,15 +16,19 @@ auto eth0
 iface eth0 inet dhcp
   alias management interface
 
-# Port to Spine01
-auto swp51
-iface swp51
-  alias to Spine01
+# Port to Server03
+auto swp1
+iface swp1
+  alias to Server03
+  # This is required for Vagrant only
+  post-up ip link set swp1 promisc on
 
-# Port to Spine02
-auto swp52
-iface swp52
-  alias to Spine02
+# Port to Server04
+auto swp2
+iface swp2
+  alias to Server04
+  # This is required for Vagrant only
+  post-up ip link set swp2 promisc on
 
 # Port to Leaf04
 auto swp49
@@ -40,15 +44,15 @@ iface swp50
   # This is required for Vagrant only
   post-up ip link set swp50 promisc on
 
-# Port to Server03
-auto swp1
-iface swp1
-  alias to Server03
+# Port to Spine01
+auto swp51
+iface swp51
+  alias to Spine01
 
-# Port to Server04
-auto swp2
-iface swp2
-  alias to Server04
+# Port to Spine02
+auto swp52
+iface swp52
+  alias to Spine02
 
 # CLAG Peerlink bond
 auto peerlink
