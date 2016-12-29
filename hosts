@@ -1,3 +1,4 @@
+[internets]
 internet ansible_user=cumulus ansible_ssh_pass=CumulusLinux! ansible_host=192.168.0.253
 
 [leafs]
@@ -33,4 +34,4 @@ server04 ansible_user=cumulus ansible_ssh_pass=CumulusLinux!
 leafs
 spines
 exits
-internet
+internets
