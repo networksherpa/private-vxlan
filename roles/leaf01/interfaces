@@ -88,7 +88,6 @@ iface bridge
   bridge-ports bond01 bond02 vni13 vni24 peerlink
   bridge-vids 13 24
   bridge-pvid 1
-  bridge-stp on
 
 # VxLAN Tunnel for Server1-Server3 (Vlan 13)
 auto vni13
