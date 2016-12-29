@@ -25,7 +25,7 @@
 
     - name: Copy Routing Configuration
       copy:
-        src: roles/{{ansible_hostname}}/quagga.conf
+        src: roles/{{ansible_hostname}}/Quagga.conf
         dest: /etc/quagga/Quagga.conf
         validate: vtysh -C -f /etc/quagga/Quagga.conf
       notify: apply quagga config
