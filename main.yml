@@ -18,8 +18,18 @@
 
     - name: Copy Interfaces File
       copy:
-        src: /roles/{{ansible_hostname}}/interfaces
+        src: roles/{{ansible_hostname}}/interfaces
         dest: /etc/network/interfaces
+        validate: ifup -a -s -i %s
+      notify: apply interface changes
 
   handlers:
-    - include: handlers/main.yml
+    - name: restart quagga service
+      service:
+        name: quagga
+        state: restarted
+
+    - name: apply interface changes
+      service:
+        name: networking
+        state: reloaded
