@@ -101,5 +101,7 @@ auto vni24
 iface vni24
   vxlan-id 24
   vxlan-local-tunnelip 10.1.1.2
-  mstpctl-bpduguard yes     # Enable BPDU Guard to block if a BPDU is received over VxLAN
-  mstpctl-portbpdufilter yes # Enable BPDU Filter to not send BPDUs over the VxLAN tunnel
+  # Enable BPDU Guard to block if a BPDU is received over VxLAN
+  mstpctl-bpduguard yes
+  # Enable BPDU Filter to not send BPDUs over the VxLAN tunnel
+  mstpctl-portbpdufilter yes
