@@ -41,7 +41,7 @@
         name: networking
         state: reloaded
 
-    - name: appply quagga config
+    - name: apply quagga config
       service:
         name: quagga
         state: reloaded
