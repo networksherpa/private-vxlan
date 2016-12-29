@@ -71,7 +71,7 @@ iface peerlink.4094
 
 # Bond to Server03
 auto bond03
-iface bond04
+iface bond03
   bond-slaves swp1
   bridge-access 13
   clag-id 3
