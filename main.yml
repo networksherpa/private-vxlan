@@ -30,6 +30,27 @@
         validate: vtysh -C -f %s
       notify: apply quagga config
 
+  handlers:
+    - name: restart vxlan service node
+      service:
+        name: vxsnd
+        state: restarted
+
+    - name: restart quagga service
+      service:
+        name: quagga
+        state: restarted
+
+    - name: apply interface changes
+      service:
+        name: networking
+        state: reloaded
+
+    - name: apply quagga config
+      service:
+        name: quagga
+        state: reloaded
+
 - hosts: spines
   become: yes
   tasks:
@@ -75,18 +96,3 @@
       service:
         name: vxsnd
         state: restarted
-
-    - name: restart quagga service
-      service:
-        name: quagga
-        state: restarted
-
-    - name: apply interface changes
-      service:
-        name: networking
-        state: reloaded
-
-    - name: apply quagga config
-      service:
-        name: quagga
-        state: reloaded
