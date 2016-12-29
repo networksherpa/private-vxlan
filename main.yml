@@ -64,14 +64,14 @@
     - name: Configure VxLAN Service Node Anycast IP
       lineinfile:
         dest: /etc/vxsnd.conf
-        line: "^svcnode_ip = 10.255.255.10"
+        line: "svcnode_ip = 10.255.255.10"
         regexp: "svcnode_ip ="
       notify: restart vxlan service node
 
     - name: Configure Spine01 VxLAN Service Node Source IP
       lineinfile:
         dest: /etc/vxsnd.conf
-        line: "^src_ip = 10.100.100.1"
+        line: "src_ip = 10.100.100.1"
         regexp: "src_ip ="
       notify: restart vxlan service node
       when: ansible_hostname == "spine01"
@@ -79,7 +79,7 @@
     - name: Configure Spine02 VxLAN Service Node Source IP
       lineinfile:
         dest: /etc/vxsnd.conf
-        line: "^src_ip = 10.100.100.2"
+        line: "src_ip = 10.100.100.2"
         regexp: "src_ip ="
       notify: restart vxlan service node
       when: ansible_hostname == "spine02"
@@ -87,7 +87,7 @@
     - name: Configure VxLAN Service Node Peers
       lineinfile:
         dest: /etc/vxsnd.conf
-        line: "^svcnode_peers = 10.100.100.1 10.100.100.2"
+        line: "svcnode_peers = 10.100.100.1 10.100.100.2"
         regexp: "svcnode_peers ="
       notify: restart vxlan service node
 
