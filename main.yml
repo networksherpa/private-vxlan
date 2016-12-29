@@ -27,7 +27,7 @@
       copy:
         src: roles/{{ansible_hostname}}/Quagga.conf
         dest: /etc/quagga/Quagga.conf
-        validate: vtysh -C -f /etc/quagga/Quagga.conf
+        validate: vtysh -C -f %s
       notify: apply quagga config
 
   handlers:
