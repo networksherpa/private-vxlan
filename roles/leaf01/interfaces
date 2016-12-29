@@ -30,13 +30,15 @@ iface swp52
 auto swp49
 iface swp49
   alias to Leaf02
-  post-up ip link set swp49 promisc on # Required for Vagrant only
+  # This is required for Vagrant only
+  post-up ip link set swp49 promisc on
 
 # Port to Leaf02
 auto swp50
 iface swp50
   alias to Leaf02
-  post-up ip link set swp50 promisc on  # Required for Vagrant only
+  # This is required for Vagrant only
+  post-up ip link set swp50 promisc on
 
 # Port to Server01
 auto swp1
@@ -51,7 +53,7 @@ iface swp2
 # CLAG Peerlink bond
 auto peerlink
 iface peerlink
- bond-slaves swp49 swp50
+  bond-slaves swp49 swp50
 
 # CLAG Peerlink L2 interface.
 # This creates VLAN 4094 that only lives on the peerlink bond
@@ -66,27 +68,27 @@ iface peerlink.4094
 # Bond to Server01
 auto bond01
 iface bond01
- bond-slaves swp1
- bridge-access 13
- clag-id 1
+  bond-slaves swp1
+  bridge-access 13
+  clag-id 1
 
 # Bond to Server02
 auto bond02
 iface bond02
- bond-slaves swp2
- bridge-access 24
- clag-id 2
+  bond-slaves swp2
+  bridge-access 24
+  clag-id 2
 
 # Define the bridge for STP
 auto bridge
 iface bridge
- bridge-vlan-aware yes
- # bridge-ports includes all ports related to VxLAN and CLAG.
- # does not include the Peerlink.4094 subinterface
- bridge-ports bond01 bond02 vni13 vni24 peerlink
- bridge-vids 13 24
- bridge-pvid 1
- bridge-stp on
+  bridge-vlan-aware yes
+  # bridge-ports includes all ports related to VxLAN and CLAG.
+  # does not include the Peerlink.4094 subinterface
+  bridge-ports bond01 bond02 vni13 vni24 peerlink
+  bridge-vids 13 24
+  bridge-pvid 1
+  bridge-stp on
 
 # VxLAN Tunnel for Server1-Server3 (Vlan 13)
 auto vni13
