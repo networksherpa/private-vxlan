@@ -1,5 +1,5 @@
 ---
-- hosts: leafs
+- hosts: network
   become: yes
   tasks:
     - name: Enable Quagga Zebra
