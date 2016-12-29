@@ -96,3 +96,19 @@
       service:
         name: vxsnd
         state: restarted
+
+- hosts: hosts
+  become: yes
+  tasks:
+    - name: Copy Interface Config
+      copy:
+        src: roles/{{ansible_hostname}}/interfaces
+        dest: /etc/network/interfaces
+      register: reboot
+
+    - name: reboot
+      shell: sleep 1 && shutdown -r 0
+      poll: 0
+      async: 1
+      when: reboot.changed
+      ignore_errors: yes
