@@ -6,7 +6,7 @@
 auto lo
 iface lo inet loopback
   address 10.1.1.1/32
-  clagd-vxlan-anycast-ip 10.10.10.1
+  #clagd-vxlan-anycast-ip 10.10.10.1
   vxrd-src-ip 10.1.1.1
   vxrd-svcnode-ip 10.255.255.10
   alias loopback interface
@@ -55,19 +55,19 @@ iface swp52
   alias to Spine02
 
 # CLAG Peerlink bond
-auto peerlink
-iface peerlink
-  bond-slaves swp49 swp50
-
-# CLAG Peerlink L2 interface.
-# This creates VLAN 4094 that only lives on the peerlink bond
-# No other interface will be aware of VLAN 4094
-auto peerlink.4094
-iface peerlink.4094
-  address 169.254.1.1/30
-  clagd-peer-ip 169.254.1.2
-  clagd-backup-ip 10.1.1.2
-  clagd-sys-mac 44:39:39:ff:40:94
+#auto peerlink
+#iface peerlink
+#  bond-slaves swp49 swp50
+#
+## CLAG Peerlink L2 interface.
+## This creates VLAN 4094 that only lives on the peerlink bond
+## No other interface will be aware of VLAN 4094
+#auto peerlink.4094
+#iface peerlink.4094
+#  address 169.254.1.1/30
+#  clagd-peer-ip 169.254.1.2
+#  clagd-backup-ip 10.1.1.2
+#  clagd-sys-mac 44:39:39:ff:40:94
 
 # Bond to Server01
 auto bond01
@@ -89,7 +89,7 @@ iface bridge
   bridge-vlan-aware yes
   # bridge-ports includes all ports related to VxLAN and CLAG.
   # does not include the Peerlink.4094 subinterface
-  bridge-ports bond01 bond02 peerlink vni13 vni24
+  bridge-ports bond01 bond02 vni13 vni24
   bridge-vids 13 24
   bridge-pvid 1
 
