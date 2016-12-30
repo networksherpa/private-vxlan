@@ -1,0 +1,4 @@
+# Management interface
+auto eth0
+iface eth0 inet dhcp
+  alias management interface

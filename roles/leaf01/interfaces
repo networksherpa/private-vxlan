@@ -7,7 +7,7 @@ auto lo
 iface lo inet loopback
   address 10.1.1.1/32
   vxrd-src-ip 10.1.1.1
-  vxrd-svcnode-ip 10.255.255.10
+  vxrd-svcnode-ip 10.255.255.255
   alias loopback interface
 
 # Management interface
@@ -19,47 +19,22 @@ iface eth0 inet dhcp
 auto swp1
 iface swp1
   alias to Server01
-  # This is required for Vagrant only
-  post-up ip link set swp1 promisc on
+  bridge-access 13
 
 # Port to Server02
 auto swp2
 iface swp2
   alias to Server02
-  # This is required for Vagrant only
-  post-up ip link set swp2 promisc on
+  bridge-access 24
 
 # Port to Spine01
 auto swp51
 iface swp51
-  alias to Spine01
 
-# Port to Spine02
-auto swp52
-iface swp52
-  alias to Spine02
-
-# Bond to Server01
-auto bond01
-iface bond01
-  bond-slaves swp1
-  bridge-access 13
-  clag-id 1
-
-# Bond to Server02
-auto bond02
-iface bond02
-  bond-slaves swp2
-  bridge-access 24
-  clag-id 2
-
-# Define the bridge for STP
 auto bridge
 iface bridge
   bridge-vlan-aware yes
-  # bridge-ports includes all ports related to VxLAN and CLAG.
-  # does not include the Peerlink.4094 subinterface
-  bridge-ports bond01 bond02 vni13 vni24
+  bridge-ports swp1 swp2 vni13 vni24
   bridge-vids 13 24
   bridge-pvid 1
 
