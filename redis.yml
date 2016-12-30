@@ -46,6 +46,6 @@
       command: netq agent start
 
     - name: Check that the agent is running
-       command: netq agent status
-       register: status
-       failed_when: "'Stopped.' in status.stdout"
+      command: netq agent status
+      register: status
+      failed_when: "'Stopped.' in status.stdout"
