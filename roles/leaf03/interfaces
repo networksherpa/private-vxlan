@@ -29,20 +29,6 @@ iface swp2
   # This is required for Vagrant only
   post-up ip link set swp2 promisc on
 
-# Port to Leaf04
-auto swp49
-iface swp49
-  alias to Leaf04
-  # This is required for Vagrant only
-  post-up ip link set swp49 promisc on
-
-# Port to Leaf04
-auto swp50
-iface swp50
-  alias to Leaf04
-  # This is required for Vagrant only
-  post-up ip link set swp50 promisc on
-
 # Port to Spine01
 auto swp51
 iface swp51
@@ -52,21 +38,6 @@ iface swp51
 auto swp52
 iface swp52
   alias to Spine02
-
-# CLAG Peerlink bond
-auto peerlink
-iface peerlink
- bond-slaves swp49 swp50
-
-# CLAG Peerlink L2 interface.
-# This creates VLAN 4094 that only lives on the peerlink bond
-# No other interface will be aware of VLAN 4094
-auto peerlink.4094
-iface peerlink.4094
-  address 169.254.1.1/30
-  clagd-peer-ip 169.254.1.2
-  clagd-backup-ip 10.1.1.4
-  clagd-sys-mac 44:39:39:ff:40:95
 
 # Bond to Server03
 auto bond03
@@ -88,7 +59,7 @@ iface bridge
   bridge-vlan-aware yes
   # bridge-ports includes all ports related to VxLAN and CLAG.
   # does not include the Peerlink.4094 subinterface
-  bridge-ports bond03 bond04 peerlink vni13 vni24
+  bridge-ports bond03 bond04 vni13 vni24
   bridge-vids 13 24
   bridge-pvid 1
 

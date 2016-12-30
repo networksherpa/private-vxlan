@@ -6,7 +6,6 @@
 auto lo
 iface lo inet loopback
   address 10.1.1.1/32
-  #clagd-vxlan-anycast-ip 10.10.10.1
   vxrd-src-ip 10.1.1.1
   vxrd-svcnode-ip 10.255.255.10
   alias loopback interface
@@ -30,20 +29,6 @@ iface swp2
   # This is required for Vagrant only
   post-up ip link set swp2 promisc on
 
-# Port to Leaf02
-auto swp49
-iface swp49
-  alias to Leaf02
-  # This is required for Vagrant only
-  post-up ip link set swp49 promisc on
-
-# Port to Leaf02
-auto swp50
-iface swp50
-  alias to Leaf02
-  # This is required for Vagrant only
-  post-up ip link set swp50 promisc on
-
 # Port to Spine01
 auto swp51
 iface swp51
@@ -53,21 +38,6 @@ iface swp51
 auto swp52
 iface swp52
   alias to Spine02
-
-# CLAG Peerlink bond
-#auto peerlink
-#iface peerlink
-#  bond-slaves swp49 swp50
-#
-## CLAG Peerlink L2 interface.
-## This creates VLAN 4094 that only lives on the peerlink bond
-## No other interface will be aware of VLAN 4094
-#auto peerlink.4094
-#iface peerlink.4094
-#  address 169.254.1.1/30
-#  clagd-peer-ip 169.254.1.2
-#  clagd-backup-ip 10.1.1.2
-#  clagd-sys-mac 44:39:39:ff:40:94
 
 # Bond to Server01
 auto bond01
