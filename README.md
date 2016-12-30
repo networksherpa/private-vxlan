@@ -27,6 +27,7 @@ tcpdump: listening on vni24, link-type EN10MB (Ethernet), capture size 262144 by
 19:34:58.410630 ARP, Ethernet (len 6), IPv4 (len 4), Request who-has 10.1.3.22 tell 10.1.3.101, length 46
 19:34:58.410966 ARP, Ethernet (len 6), IPv4 (len 4), Request who-has 10.1.3.22 tell 10.1.3.101, length 46
 19:34:58.411534 ARP, Ethernet (len 6), IPv4 (len 4), Request who-has 10.1.3.22 tell 10.1.3.101, length 46
-19:34:58.411838 ARP, Ethernet (len 6), IPv4 (len 4), Request who-has 10.1.3.22 tell 10.1.3.101, length 46```
+19:34:58.411838 ARP, Ethernet (len 6), IPv4 (len 4), Request who-has 10.1.3.22 tell 10.1.3.101, length 46
+```
 
 
