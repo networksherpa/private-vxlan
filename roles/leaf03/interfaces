@@ -25,7 +25,7 @@ iface swp1
 auto swp2
 iface swp2
   alias to Server04
-  bridge-acces 24
+  bridge-access 24
 
 # Port to Spine01
 auto swp51
