@@ -23,8 +23,11 @@ iface eth2 inet manual
 auto uplink
 iface uplink inet static
   bond-slaves none
-  bond-mode active-backup
+  bond-mode 802.3ad
+  bond-miimon 100
+  bond-lacp-rate 1
   bond-min-links 1
   bond-xmit-hash-policy layer3+4
-  address 10.1.3.103/24
-  gateway 10.1.3.3
+  address 10.1.3.103
+  netmask 255.255.255.0
+  gateway 10.1.3.1
