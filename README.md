@@ -52,4 +52,7 @@ ARP, Request who-has 10.1.3.22 tell 10.1.3.101, length 46
 19:35:42.671655 IP 10.10.10.1.59606 > 10.10.10.2.4789: VXLAN, flags [I] (0x08), vni 13
 ```
 
+10.10.10.1 is the anycast IP of the leaf01/leaf02 clag pair, 10.10.10.2 is the anycast IP of the leaf03/leaf04 anycast IP pair
+
+
 
