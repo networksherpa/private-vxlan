@@ -11,7 +11,8 @@
       register: bgp_output
 
     # Set a play fact as json data of the bgp output
-    - set_fact: configured_bgp_peers="{{ bgp_output.stdout | from_json }}"
+    - set_fact:
+        configured_bgp_peers: "{{ bgp_output.stdout | from_json }}"
 
     # - name: blah
     #   debug: msg="{{myvar}}"
@@ -33,7 +34,8 @@
       command: net show interface json
       register: interface_output
 
-    - set_fact: configured_interfaces="{{interface_output | from_json}}"
+    - set_fact:
+        configured_interfaces: "{{interface_output.stdout | from_json}}"
 
     - assert:
         that:
