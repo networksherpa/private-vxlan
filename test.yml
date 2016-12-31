@@ -2,4 +2,4 @@
 - hosts: network
   tasks:
     - debug:
-         msg: hostvars[ansible_hostname]["ansible_lo"]["ipv4_secondaries"]
+         var: hostvars[ansible_hostname]["ansible_lo"]["ipv4_secondaries"]
