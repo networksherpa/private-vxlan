@@ -19,7 +19,7 @@
       register: bgp_summary
 
     - debug:
-        var: bgp_summary.stdout
+        var: "{{bgp_summary.stdout|from_json}}"
 
     - set_fact:
         configured_bgp_peers: "{{bgp_summary.stdout|from_json}}"
