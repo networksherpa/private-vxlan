@@ -4,6 +4,7 @@
     - vars.yml
   tasks:
     - debug:
-         #var: l3_interfaces.loopback.{{ansible_hostname}}
-         var: l3_interfaces.loopback.spine01.anycast
+        #var: l3_interfaces.loopback.{{ansible_hostname}}
+        msg: "{{item}}"
+      with_items: l3_interfaces.loopback
 
