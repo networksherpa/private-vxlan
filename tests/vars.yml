@@ -44,35 +44,35 @@ l3_interfaces:
 bgp:
     spine01:
       peers: ["swp1", "swp2", "swp3", "swp4"]
-      asn: "65531"
+      asn: 65531
 
     spine02:
       peers: ["swp1", "swp2", "swp3", "swp4"]
-      asn: "65532"
+      asn: 65532
 
     leaf01:
       peers: ["swp51", "swp52"]
-      asn: "65001"
+      asn: 65001
 
     leaf02:
       peers: ["swp51", "swp52"]
-      asn: "65002"
+      asn: 65002
 
     leaf03:
       peers: ["swp51", "swp52"]
-      asn: "65003"
+      asn: 65003
 
     leaf04:
       peers: ["swp51", "swp52"]
-      asn: "65004"
+      asn: 65004
 
     exit01:
       peers: ["swp51", "swp52"]
-      asn: "65501"
+      asn: 65501
 
     exit02:
       peers: ["swp51", "swp52"]
-      asn: "65502"
+      asn: 65502
 
 vxrd:
     vnis: ["vni13", "vni24"]
