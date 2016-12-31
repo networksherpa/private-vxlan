@@ -24,4 +24,4 @@
       debug: var="{{myvar}}"
 
     - name: blah2
-      debug: var="{{result.stdout | from_json}}"
+      debug: msg="{{result.stdout | from_json}}"
