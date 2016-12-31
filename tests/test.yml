@@ -37,9 +37,11 @@
     - set_fact:
         configured_interfaces: "{{interface_output.stdout | from_json}}"
 
+    - debug: msg={{configured_interfaces}}
+
     - assert:
         that:
-          - l3_interfaces.loopback[ansible_hostname].ipv4 in configured_interfaces["lo"]["ip_address"]["allentries"]
+          - l3_interfaces.loopback[ansible_hostname].ipv4 in configured_interfaces["lo"]["iface_obj"]["ip_address"]["allentries"]
 
     - name: Ping Test
       command: ping {{l3_interfaces.loopback[item].ipv4}} -I {{l3_interfaces.loopback[ansible_hostname].ipv4}} -c 1
