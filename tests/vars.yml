@@ -41,16 +41,38 @@ l3_interfaces:
       ipv4: "10.255.255.2"
       anycast: "10.10.10.3"
 
-bgp_peers:
-    spine01: ["leaf01", "leaf02", "leaf03", "leaf04"]
-    spine02: ["leaf01", "leaf02", "leaf03", "leaf04"]
-    leaf01:  ["spine01", "spine02"]
-    leaf02:  ["spine01", "spine02"]
-    leaf03:  ["spine01", "spine02"]
-    leaf04:  ["spine01", "spine02"]
-    exit01:  ["spine01", "spine02"]
-    exit02:  ["spine01", "spine02"]
-    internet: []
+bgp:
+    spine01:
+      peers: ["swp1", "swp2", "swp3", "swp4"]
+      asn: "65531"
+
+    spine02:
+      peers: ["swp1", "swp2", "swp3", "swp4"]
+      asn: "65532"
+
+    leaf01:
+      peers: ["swp51", "swp52"]
+      asn: "65001"
+
+    leaf02:
+      peers: ["swp51", "swp52"]
+      asn: "65002"
+
+    leaf03:
+      peers: ["swp51", "swp52"]
+      asn: "65003"
+
+    leaf04:
+      peers: ["swp51", "swp52"]
+      asn: "65004"
+
+    exit01:
+      peers: ["swp51", "swp52"]
+      asn: "65501"
+
+    exit02:
+      peers: ["swp51", "swp52"]
+      asn: "65502"
 
 vxrd:
     vnis: ["vni13", "vni24"]
