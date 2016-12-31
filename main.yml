@@ -97,7 +97,7 @@
         name: vxsnd
         state: restarted
 
-- hosts: hosts
+- hosts: servers
   become: yes
   tasks:
     - name: Copy Interface Config
