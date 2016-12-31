@@ -19,4 +19,4 @@
       register: bgp_summary
 
     - debug:
-        msg: "{{bgp_summary.peers}}"
+        var: bgp_summary.peers
