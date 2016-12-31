@@ -23,7 +23,9 @@
     # - name: blah
     #   debug: msg="{{myvar}}"
 
+    # Validate that the BGP peers are configured
     - assert:
         that:
-          - "{{configured_bgp_peers.keys}}".{{item}} is defined
+          - configured_bgp_peers.peers[item] is defined
+          - configured_bgp_peers.peers[item].state is "Established"
       with_items: "{{bgp[ansible_hostname].peers}}"
