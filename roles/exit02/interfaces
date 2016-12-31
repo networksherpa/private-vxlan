@@ -64,6 +64,7 @@ iface peerlink.4094
   clagd-peer-ip 169.254.1.1
   clagd-backup-ip 10.255.255.1
   clagd-sys-mac 44:39:39:ff:40:96
+  clagd-priority 200
 
 # Bond to Internet
 auto bond0
