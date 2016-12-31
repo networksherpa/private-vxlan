@@ -26,7 +26,7 @@
     # Verify the correct BGP ASN is configured
     - assert:
         that:
-          - configured_bgp_peers.as is {{item}}
+          - configured_bgp_peers.as == {{item}}
       with_items: "{{bgp[ansible_hostname].asn}}"
 
     - name: Get Interface Data
