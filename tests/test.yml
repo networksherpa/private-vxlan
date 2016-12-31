@@ -6,5 +6,5 @@
     - debug:
         #var: l3_interfaces.loopback.{{ansible_hostname}}
         msg: "{{item}}"
-      with_items: l3_interfaces.loopback
+      with_items: "{{l3_interfaces.loopback}}"
 
