@@ -59,7 +59,7 @@ bgp_peers:
 vxrd:
     vnis: ["vni13", "vni24"]
     vlans: ["13", "24"]
-    service_node: [{{l3_interfaces.loopback.spine01.anycast}}]
+    service_node: ["{{l3_interfaces.loopback.spine01.anycast}}"]
     leaf01:  [l3_interfaces.loopback.leaf02.ipv4,
               l3_interfaces.loopback.leaf03.ipv4,
               l3_interfaces.loopback.leaf04.ipv4,
