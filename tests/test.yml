@@ -23,7 +23,7 @@
     # - name: blah
     #   debug: msg="{{myvar}}"
 
-    - fail:
-        msg: "BGP peers don't match"
-      when: not "{{item}}" in {{configured_bgp_peers.peers.keys()}}
+    - assert:
+        that:
+          - "{{configured_bgp_peers.keys}}".{{item}} is defined
       with_items: "{{bgp[ansible_hostname].peers}}"
