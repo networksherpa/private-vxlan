@@ -4,28 +4,44 @@
   vars_files:
     - vars.yml
   tasks:
-    # - debug:
-    #     #var: l3_interfaces.loopback.{{ansible_hostname}}
-    #     msg: "{{item}}"
-    #   with_items: "{{l3_interfaces.loopback}}"
 
-    # - name: Ping Test
-    #   command: ping {{l3_interfaces.loopback[item].ipv4}} -I {{l3_interfaces.loopback[ansible_hostname].ipv4}} -c 1
-    #   with_items: "{{l3_interfaces.loopback}}"
-    #   # This with_items will provide a list of hostnames
-
+    # Pull BGP data and put it into an Ansible Variable
     - name: Get BGP Info
       command: vtysh -c 'show ip bgp sum json'
-      register: result
+      register: bgp_output
 
-    - set_fact: configured_bgp_peers="{{ result.stdout | from_json }}"
+    # Set a play fact as json data of the bgp output
+    - set_fact: configured_bgp_peers="{{ bgp_output.stdout | from_json }}"
 
     # - name: blah
     #   debug: msg="{{myvar}}"
 
-    # Validate that the BGP peers are configured
+    # Validate that the BGP peers are configured and up
     - assert:
         that:
           - configured_bgp_peers.peers[item] is defined
-          - configured_bgp_peers.peers[item].state is "Established"
+          - configured_bgp_peers.peers[item].state == "Established"
       with_items: "{{bgp[ansible_hostname].peers}}"
+
+    # Verify the correct BGP ASN is configured
+    - assert:
+        that:
+          - configured_bgp_peers.as is {{item}}
+      with_items: "{{bgp[ansible_hostname].asn}}"
+
+    - name: Get Interface Data
+      command: net show interface json
+      register: interface_output
+
+    - set_fact: configured_interfaces="{{interface_output | from_json}}"
+
+    - assert:
+        that:
+          - l3_interfaces.loopback[ansible_hostname].ipv4 in configured_interfaces["lo"]["ip_address"]["allentries"]
+
+    - name: Ping Test
+      command: ping {{l3_interfaces.loopback[item].ipv4}} -I {{l3_interfaces.loopback[ansible_hostname].ipv4}} -c 1
+      with_items: "{{l3_interfaces.loopback}}"
+      # This with_items will provide a list of hostnames
+
+
