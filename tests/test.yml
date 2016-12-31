@@ -20,5 +20,8 @@
 
     - set_fact: myvar="{{ result.stdout | from_json }}"
 
-    - debug:
-        var: "{{myvar}}"
+    - name: blah
+      debug: var="{{myvar}}"
+
+    - name: blah2
+      debug: var="{{result.stdout | from_json}}"
