@@ -18,6 +18,9 @@
       command: vtysh -c 'show ip bgp sum json'
       register: bgp_summary
 
+    - debug:
+        var: bgp_summary.stdout
+
     - set_fact:
         configured_bgp_peers: "{{bgp_summary.stdout|from_json}}"
 
