@@ -5,5 +5,5 @@
   tasks:
     - debug:
          #var: l3_interfaces.loopback.{{ansible_hostname}}
-         var: hostvars[ansible_hostname]
+         var: vars
 
