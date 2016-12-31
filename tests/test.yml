@@ -1,8 +1,7 @@
 ---
 - hosts: leaf01
-  vars:
-    - include: vars.yml
-      static: yes
+  include_vars:
+    file: vars.yml
   tasks:
     - debug:
          #var: l3_interfaces.loopback.{{ansible_hostname}}
