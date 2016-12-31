@@ -2,6 +2,6 @@
 - hosts: leafs,spines
   tasks:
     - debug:
-         var: "{{item}}"
+         var: "{{item}}"["address"]
       with_items:
-        - hostvars[ansible_hostname]["ansible_lo"]["ipv4_secondaries"]["address"]
+        - hostvars[ansible_hostname]["ansible_lo"]["ipv4_secondaries"]
