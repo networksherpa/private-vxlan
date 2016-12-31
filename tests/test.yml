@@ -10,5 +10,5 @@
 
     - name: Ping Test
       command: ping {{l3_interfaces.loopback[item].ipv4}} -I {{l3_interfaces.loopback[ansible_hostname].ipv4}} -c 1
-      when: not $item == "internet"
+      when: not {{item}} == "internet"
       with_items: "{{l3_interfaces.loopback}}"
