@@ -1,7 +1,5 @@
 ---
 - hosts: network
   tasks:
-    # - name: Ping Test
-    #   command: ping {{item}}
     - debug:
-      msg: hostvars[{{ansible_hostname}}]["ansible_lo"]["ipv4_secondaries"]
+      msg: hostvars[ansible_hostname]["ansible_lo"]["ipv4_secondaries"]
