@@ -9,5 +9,5 @@
     #   with_items: "{{l3_interfaces.loopback}}"
 
     - name: Ping Test
-      command: ping {{l3_interfaces.loopback.item.ipv4}} -I {{l3_interfaces.loopback.ansible_hostname.ipv4}} -c 1
+      command: ping {{l3_interfaces.loopback[item].ipv4}} -I {{l3_interfaces.loopback.ansible_hostname.ipv4}} -c 1
       with_items: "{{l3_interfaces.loopback}}"
