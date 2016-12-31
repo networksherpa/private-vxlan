@@ -18,10 +18,13 @@
       command: vtysh -c 'show ip bgp sum json'
       register: result
 
-    - set_fact: myvar="{{ result.stdout | from_json }}"
+    - set_fact: configured_bgp_peers="{{ result.stdout | from_json }}"
 
-    - name: blah
-      debug: msg="{{myvar}}"
+    # - name: blah
+    #   debug: msg="{{myvar}}"
 
-    - name: blah2
-      debug: msg="{{result.stdout | from_json}}"
+    - debug: msg="{{configured_bgp_peers|json_query('peers.*.hostname')}}"
+
+    - fail:
+        msg: "BGP peers don't match"
+      when: not "{{item}}" in {{configured_bgp_peers|json_query('peers.*.hostname')}}
