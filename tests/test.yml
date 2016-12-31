@@ -16,13 +16,9 @@
 
     - name: Get BGP Info
       command: vtysh -c 'show ip bgp sum json'
-      register: bgp_summary
+      register: result
+
+    - set_fact: myvar="{{ result.stdout | from_json }}"
 
     - debug:
-        var: "{{bgp_summary.stdout|from_json}}"
-
-    - set_fact:
-        configured_bgp_peers: "{{bgp_summary.stdout|from_json}}"
-
-    - debug:
-        var: "{{configured_bgp_peers}}"
+        var: "{{myvar}}"
