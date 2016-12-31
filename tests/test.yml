@@ -18,4 +18,4 @@
       register: bgp_summary
 
     - debug:
-      msg: bgp_summary.peers
+        msg: bgp_summary.peers
