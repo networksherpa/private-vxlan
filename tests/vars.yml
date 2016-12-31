@@ -41,10 +41,6 @@ l3_interfaces:
       ipv4: "10.255.255.2"
       anycast: "10.10.10.3"
 
-    internet:
-      ipv6: "fd::1:1/128"
-      ipv4: "172.16.0.11/32"
-
 bgp_peers:
     spine01: ["leaf01", "leaf02", "leaf03", "leaf04"]
     spine02: ["leaf01", "leaf02", "leaf03", "leaf04"]
