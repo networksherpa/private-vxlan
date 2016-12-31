@@ -15,7 +15,7 @@
     #   # This with_items will provide a list of hostnames
 
     - name: Get BGP Info
-      command: vtysh -c show ip bgp sum json
+      command: vtysh -c 'show ip bgp sum json'
       register: bgp_summary
 
     - debug:
