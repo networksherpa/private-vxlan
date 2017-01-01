@@ -1,24 +1,16 @@
 ---
-- name: Get VTEP VxLANs
+- name: Get VxLAN Data
   command: vxrdctl vxlans -j
   register: vxrd_vxlans_output
   when: vxrd[ansible_hostname] is defined
 
-- name: Get VTEP Peers
-  command: vxrdctl peers -j
-  register: vxrd_peers_output
-  when: vxrd[ansible_hostname] is defined
-
-- name: Process VTEP VxLAN Data
+- name: Process VxLAN Data
   set_fact:
     configured_vxlans: "{{vxrd_vxlans_output.stdout | from_json}}"
   when: vxrd[ansible_hostname] is defined
 
-- name: Process VTEP Peer Data
-  set_fact:
-    configured_peers: "{{vxrd_peers_output.stdout | from_json}}"
-  when: vxrd[ansible_hostname] is defined
-
+# This ensures that all the expected VNIs are configured.
+# Does not check if extra VNIs are configured
 - name: Validate VNIs
   assert:
     that:
@@ -26,11 +18,21 @@
   with_items: "{{vxrd.vnis}}"
   when: vxrd[ansible_hostname] is defined
 
+# This will look at each VNI configured on the box and validate
+# that the service node is configured as expected
 - name: Validate Service Node
   assert:
     that:
-      - configured_vxlans[{{item}}].svcnodeip == vxrd.service_node
+      - configured_vxlans[{{item}}|string].svcnodeip == vxrd.service_node
   with_items: "{{configured_vxlans.keys()}}"
+
+- name: Validate Head End Replication Endpoints
+  assert:
+    that:
+      - {{item[0]}} in configured_vxlans[{{item[1]}}]|string].hrep_addrs
+    with_nested:
+      - {{vxrd[ansible_hostname]}}
+      - {{configured_vxlans.keys()}}
 #cumulus@leaf01:~$ sudo vxrdctl vxlans -j
 #{"24": {"dev_name": "vni24", "svcnodeip": "10.255.255.10", "hrep_addrs": ["10.10.10.3", "10.10.10.2"], "localip": "10.10.10.1"}, "13": {"dev_name": "vni13", "svcnodeip": "10.255.255.10", "hrep_addrs": ["10.10.10.3", "10.10.10.2"], "localip": "10.10.10.1"}}
 
