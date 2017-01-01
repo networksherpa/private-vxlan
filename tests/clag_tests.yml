@@ -1,5 +1,10 @@
 ---
-# Depends on interface_tests.yml
+- name: Create Peerlink IP and Mask (when required)
+  set_fact:
+    # Note the Peerlink is assumed to have /30 Mask
+    # If the mask is not /30, the assertion will fail
+    var_peerlink_mask: "{{[l3_interfaces.peerlink[ansible_hostname], '/30']|join('')}}"
+  when: l3_interfaces.peerlink[ansible_hostname] is defined
 
 - name: Validate the Peerlink IP is configured (when required)
   assert:
@@ -7,13 +12,6 @@
       # Note, this assumes peerlink.4094
       # The subinterface owns the IP and we enforce the sub must be .4094
       - var_peerlink_mask in configured_interfaces["peerlink.4094"]["iface_obj"]["ip_address"]["allentries"]
-  when: l3_interfaces.peerlink[ansible_hostname] is defined
-
-- name: Create Peerlink IP and Mask (when required)
-  set_fact:
-    # Note the Peerlink is assumed to have /30 Mask
-    # If the mask is not /30, the assertion will fail
-    var_peerlink_mask: "{{[l3_interfaces.peerlink[ansible_hostname], '/30']|join('')}}"
   when: l3_interfaces.peerlink[ansible_hostname] is defined
 
 - name: Get Clag Data
