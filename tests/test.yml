@@ -45,10 +45,11 @@
     # the output returned by net show does.
     - set_fact:
         var_loopback_mask: "{{[l3_interfaces.loopback[ansible_hostname].anycast, '/32']|join('')}}"
+      when: l3_interfaces.loopback[ansible_hostname].anycast is defined
 
     - set_fact:
         var_anycast_mask: "{{[l3_interfaces.loopback[ansible_hostname].ipv4, '/32']|join('')}}"
-      when: l3_interfaces.loopback[ansible_hostname].ipv4 is defined
+
 
     # Validate Loopback IP Address
     - assert:
@@ -58,7 +59,7 @@
     - assert:
         that:
           - var_anycast_mask in configured_interfaces["lo"]["iface_obj"]["ip_address"]["allentries"]
-      when: l3_interfaces.loopback[ansible_hostname].ipv4 is defined
+      when: l3_interfaces.loopback[ansible_hostname].anycast is defined
 
     - name: Ping Test
       command: ping {{l3_interfaces.loopback[item].ipv4}} -I {{l3_interfaces.loopback[ansible_hostname].ipv4}} -c 1
