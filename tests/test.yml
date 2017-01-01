@@ -44,12 +44,12 @@
     # the vars do not include a mask.
     # the output returned by net show does.
     - set_fact:
-        var_loopback_mask: "{{[l3_interfaces.loopback[ansible_hostname].anycast, '/32']|join('')}}"
-      when: l3_interfaces.loopback[ansible_hostname].anycast is defined
+        var_loopback_mask: "{{[l3_interfaces.loopback[ansible_hostname].ipv4, '/32']|join('')}}"
+
 
     - set_fact:
-        var_anycast_mask: "{{[l3_interfaces.loopback[ansible_hostname].ipv4, '/32']|join('')}}"
-
+        var_anycast_mask: "{{[l3_interfaces.loopback[ansible_hostname].anycast, '/32']|join('')}}"
+      when: l3_interfaces.loopback[ansible_hostname].anycast is defined
 
     # Validate Loopback IP Address
     - assert:
