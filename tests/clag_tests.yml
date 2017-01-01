@@ -19,10 +19,12 @@
 - name: Get Clag Data
   command: clagctl -j
   register: clag_output
+  when: clag[ansible_hostname] is defined
 
 - name: Process Clag Data
   set_fact:
     configured_clag: "{{clag_output.stdout | from_json}}"
+  when: clag[ansible_hostname] is defined
 
 - name: Validate Clag Settings
   assert:
