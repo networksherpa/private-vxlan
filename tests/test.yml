@@ -6,4 +6,5 @@
   tasks:
     - include: bgp_tests.yml
     - include: interface_tests.yml
+    - include: clag_tests.yml
     - include: l3_ping_test.yml
