@@ -1,0 +1,55 @@
+---
+---
+# Depends on interface_tests.yml
+
+- name: Validate the Peerlink IP is configured (when required)
+  assert:
+    that:
+      # Note, this assumes peerlink.4094
+      # The subinterface owns the IP and we enforce the sub must be .4094
+      - var_peerlink_mask in configured_interfaces["peerlink.4094"]["iface_obj"]["ip_address"]["allentries"]
+  when: l3_interfaces.peerlink[ansible_hostname] is defined
+
+- name: Create Peerlink IP and Mask (when required)
+  set_fact:
+    # Note the Peerlink is assumed to have /30 Mask
+    # If the mask is not /30, the assertion will fail
+    var_peerlink_mask: "{{[l3_interfaces.peerlink[ansible_hostname], '/30']|join('')}}"
+  when: l3_interfaces.peerlink[ansible_hostname] is defined
+
+- name: Get VTEP VxLANs
+  command: vxrdctl vxlans -j
+  register: vxrd_vxlans_output
+  when: vxrd[ansible_hostname] is defined
+
+- name: Get VTEP Peers
+  command: vxrdctl peers -j
+  register: vxrd_peers_output
+  when: vxrd[ansible_hostname] is defined
+
+- name: Process VTEP VxLAN Data
+  set_fact:
+    configured_vxlans: "{{vxrd_vxlans_output.stdout | from_json}}"
+  when: vxrd[ansible_hostname] is defined
+
+- name: Process VTEP Peer Data
+  set_fact:
+    configured_vxlans: "{{vxrd_peers_output.stdout | from_json}}"
+  when: vxrd[ansible_hostname] is defined
+
+- name: Validate VNIs
+  assert:
+    that:
+      - "{{item}}" in configured_vxlans.keys()
+  with_items: vxrd[ansible_hostname].vnis
+  when: vxrd[ansible_hostname] is defined
+
+
+
+  #     - clag[ansible_hostname].priority == configured_clag["status"]["ourPriority"]
+  #     - clag[ansible_hostname].role == configured_clag["status"]["ourRole"]
+  #     - clag[ansible_hostname].system_mac == configured_clag["status"]["sysMac"]
+  #     - clag[ansible_hostname].anycast == configured_clag["status"]["vxlanAnycast"]
+  #     - clag[ansible_hostname].backup_ip == configured_clag["status"]["backupIp"]
+  #     - clag[ansible_hostname].peer_ip == configured_clag["status"]["peerIp"]
+  # when: clag[ansible_hostname] is defined
