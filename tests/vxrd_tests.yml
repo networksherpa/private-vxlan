@@ -24,7 +24,7 @@
   assert:
     that:
       - configured_vxlans[{{item}}|string].svcnodeip == vxrd.service_node
-  with_items: "{{configured_vxlans.keys()|default([])}}"
+  with_items: "{{configured_vxlans.keys()}}"
   when: vxrd[ansible_hostname] is defined
 
 # This validates that the list of head end replication end points
@@ -33,36 +33,5 @@
   assert:
     that:
       - configured_vxlans[{{item}}|string].hrep_addrs|sort == vxrd[ansible_hostname]|sort
-  with_items: "{{configured_vxlans.keys()|default([])}}"
+  with_items: "{{configured_vxlans.keys()}}"
   when: vxrd[ansible_hostname] is defined
-
-- name: Get Service Node Data
-  command: vxsndctl show -j
-  register: vxsndctl_output
-  when: vxsnd[ansible_hostname] is defined
-
-- name: Process Service Node Data
-  set_fact:
-    configured_vxsnd: "{{vxsndctl_output.stdout | from_json}}"
-  when: vxsnd[ansible_hostname] is defined
-
-- debug: var=configured_vxsnd
-
-- name: Validate Service Node Anycast IP
-  assert:
-    that:
-      - configured_vxsnd[anycast] == vxsnd.anycast
-  when: vxsnd[ansible_hostname] is defined
-
-- name: Validate Service Node Peers
-  assert:
-    that:
-      - ('{{item}}') in configured_vxsnd[peers]
-  with_items: "{{vxsnd[peers]|default([])}}"
-  when: vxsnd[ansible_hostname] is defined
-
-- name: Validate Correct Service Node Local Address
-  assert:
-    that:
-      - configured_vxsnd[local] == vxsnd[ansible_hostname].local_address
-  when: vxsnd[ansible_hostname] is defined
