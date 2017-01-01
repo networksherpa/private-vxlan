@@ -15,3 +15,22 @@
     # If the mask is not /30, the assertion will fail
     var_peerlink_mask: "{{[l3_interfaces.peerlink[ansible_hostname], '/30']|join('')}}"
   when: l3_interfaces.peerlink[ansible_hostname] is defined
+
+- name: Get Clag Data
+  command: clagctl -j
+  register: clag_output
+
+- name: Process Clag Data
+  set_fact:
+    configured_clag: "{{clag_output.stdout | from_json}}"
+
+- name: Validate Clag Settings
+  assert:
+    that:
+      - clag[ansible_hostname].priority is configured_clag["status"]["ourPriority"]
+      - clag[ansible_hostname].role is configured_clag["status"]["ourRole"]
+      - clag[ansible_hostname].system_mac is configured_clag["status"]["sysMac"]
+      - clag[ansible_hostname].anycast is configured_clag["status"]["vxlanAnycast"]
+      - clag[ansible_hostname].backup_ip is configured_clag["status"]["backupIp"]
+      - clag[ansible_hostname].peer_ip is configured_clag["status"]["peerIp"]
+  when: clag[ansible_hostname] is defined
