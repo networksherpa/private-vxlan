@@ -19,27 +19,21 @@ l3_interfaces:
 
     leaf01:
       ipv4: "10.1.1.1"
-      anycast: "10.10.10.1"
 
     leaf02:
       ipv4: "10.1.1.2"
-      anycast: "10.10.10.1"
 
     leaf03:
       ipv4: "10.1.1.3"
-      anycast: "10.10.10.2"
 
     leaf04:
       ipv4: "10.1.1.4"
-      anycast: "10.10.10.2"
 
     exit01:
       ipv4: "10.255.255.1"
-      anycast: "10.10.10.3"
 
     exit02:
       ipv4: "10.255.255.2"
-      anycast: "10.10.10.3"
 
 bgp:
     spine01:
@@ -127,7 +121,7 @@ clag:
     priority: "100"
     role: "primary"
     system_mac: "44:39:39:ff:40:94"
-    anycast: l3_interfaces.loopback.leaf02.anycast
+    anycast: "10.10.10.1"
     backup_ip: l3_interfaces.loopback.leaf02.ipv4
     peer_ip: l3_interfaces.peerlink.leaf02
     peerlink_interface: "peerlink.4094"
@@ -136,7 +130,7 @@ clag:
     priority: "200"
     role: "secondary"
     system_mac: "44:39:39:ff:40:94"
-    anycast: l3_interfaces.loopback.leaf01.anycast
+    anycast: "10.10.10.1"
     backup_ip: l3_interfaces.loopback.leaf01.ipv4
     peer_ip: l3_interfaces.peerlink.leaf01
     peerlink_interface: "peerlink.4094"
@@ -145,7 +139,7 @@ clag:
     priority: "100"
     role: "primary"
     system_mac: "44:39:39:ff:40:95"
-    anycast: l3_interfaces.loopback.leaf04.anycast
+    anycast: "10.10.10.2"
     backup_ip: l3_interfaces.loopback.leaf04.ipv4
     peer_ip: l3_interfaces.peerlink.leaf04
     peerlink_interface: "peerlink.4094"
@@ -154,7 +148,7 @@ clag:
     priority: "200"
     role: "secondary"
     system_mac: "44:39:39:ff:40:95"
-    anycast: l3_interfaces.loopback.leaf03.anycast
+    anycast: "10.10.10.2"
     backup_ip: l3_interfaces.loopback.leaf03.ipv4
     peer_ip: l3_interfaces.peerlink.leaf03
     peerlink_interface: "peerlink.4094"
@@ -163,7 +157,7 @@ clag:
     priority: "100"
     role: "primary"
     system_mac: "44:39:39:ff:40:96"
-    anycast: l3_interfaces.loopback.exit02.anycast
+    anycast: "10.10.10.3"
     backup_ip: l3_interfaces.loopback.exit02.ipv4
     peer_ip: l3_interfaces.peerlink.exit02
     peerlink_interface: "peerlink.4094"
@@ -172,7 +166,7 @@ clag:
     priority: "200"
     system_mac: "44:39:39:ff:40:96"
     role: "secondary"
-    anycast: l3_interfaces.loopback.exit01.anycast
+    anycast: "10.10.10.3"
     backup_ip: l3_interfaces.loopback.exit01.ipv4
     peer_ip: l3_interfaces.peerlink.exit01
     peerlink_interface: "peerlink.4094"
