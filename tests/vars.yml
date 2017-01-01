@@ -94,7 +94,7 @@ vxsnd:
 
 clag:
   leaf01:
-    priority: "100"
+    priority: 100
     role: "primary"
     system_mac: "44:39:39:ff:40:94"
     anycast: "10.10.10.1"
@@ -102,7 +102,7 @@ clag:
     peer_ip: "169.254.1.2"
 
   leaf02:
-    priority: "200"
+    priority: 200
     role: "secondary"
     system_mac: "44:39:39:ff:40:94"
     anycast: "10.10.10.1"
@@ -110,7 +110,7 @@ clag:
     peer_ip: "169.254.1.1"
 
   leaf03:
-    priority: "100"
+    priority: 100
     role: "primary"
     system_mac: "44:39:39:ff:40:95"
     anycast: "10.10.10.2"
@@ -118,7 +118,7 @@ clag:
     peer_ip: "169.254.1.2"
 
   leaf04:
-    priority: "200"
+    priority: 200
     role: "secondary"
     system_mac: "44:39:39:ff:40:95"
     anycast: "10.10.10.2"
@@ -126,7 +126,7 @@ clag:
     peer_ip: "169.254.1.1"
 
   exit01:
-    priority: "100"
+    priority: 100
     role: "primary"
     system_mac: "44:39:39:ff:40:96"
     anycast: "10.10.10.3"
@@ -134,7 +134,7 @@ clag:
     peer_ip: "169.254.1.2"
 
   exit02:
-    priority: "200"
+    priority: 200
     system_mac: "44:39:39:ff:40:96"
     role: "secondary"
     anycast: "10.10.10.3"
