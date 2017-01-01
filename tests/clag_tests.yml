@@ -29,10 +29,10 @@
 - name: Validate Clag Settings
   assert:
     that:
-      - clag[ansible_hostname].priority is configured_clag["status"]["ourPriority"]
-      - clag[ansible_hostname].role is configured_clag["status"]["ourRole"]
-      - clag[ansible_hostname].system_mac is configured_clag["status"]["sysMac"]
-      - clag[ansible_hostname].anycast is configured_clag["status"]["vxlanAnycast"]
-      - clag[ansible_hostname].backup_ip is configured_clag["status"]["backupIp"]
-      - clag[ansible_hostname].peer_ip is configured_clag["status"]["peerIp"]
+      - clag[ansible_hostname].priority == configured_clag["status"]["ourPriority"]
+      - clag[ansible_hostname].role == configured_clag["status"]["ourRole"]
+      - clag[ansible_hostname].system_mac == configured_clag["status"]["sysMac"]
+      - clag[ansible_hostname].anycast == configured_clag["status"]["vxlanAnycast"]
+      - clag[ansible_hostname].backup_ip == configured_clag["status"]["backupIp"]
+      - clag[ansible_hostname].peer_ip == configured_clag["status"]["peerIp"]
   when: clag[ansible_hostname] is defined
