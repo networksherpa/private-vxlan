@@ -16,16 +16,21 @@
 
 - name: Process VTEP Peer Data
   set_fact:
-    configured_vxlans: "{{vxrd_peers_output.stdout | from_json}}"
+    configured_peers: "{{vxrd_peers_output.stdout | from_json}}"
   when: vxrd[ansible_hostname] is defined
 
 - name: Validate VNIs
   assert:
     that:
-      - "{{item}}" in configured_vxlans.keys()
-  with_items: vxrd[ansible_hostname].vnis
+      - ('{{item}}') in configured_vxlans.keys()
+  with_items: "{{vxrd.vnis}}"
   when: vxrd[ansible_hostname] is defined
 
+- name: Validate Service Node
+  assert:
+    that:
+      - configured_vxlans[{{item}}].svcnodeip == vxrd.service_node
+  with_items: "{{configured_vxlans.keys()}}"
 #cumulus@leaf01:~$ sudo vxrdctl vxlans -j
 #{"24": {"dev_name": "vni24", "svcnodeip": "10.255.255.10", "hrep_addrs": ["10.10.10.3", "10.10.10.2"], "localip": "10.10.10.1"}, "13": {"dev_name": "vni13", "svcnodeip": "10.255.255.10", "hrep_addrs": ["10.10.10.3", "10.10.10.2"], "localip": "10.10.10.1"}}
 
