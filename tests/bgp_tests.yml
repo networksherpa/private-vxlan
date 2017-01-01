@@ -1,0 +1,25 @@
+---
+# Pull BGP data and put it into an Ansible Variable
+- name: Get BGP Info
+  command: vtysh -c 'show ip bgp sum json'
+  register: bgp_output
+
+# Set a play fact as json data of the bgp output
+- set_fact:
+    configured_bgp_peers: "{{ bgp_output.stdout | from_json }}"
+
+# - name: blah
+#   debug: msg="{{myvar}}"
+
+# Validate that the BGP peers are configured and up
+- assert:
+    that:
+      - configured_bgp_peers.peers[item] is defined
+      - configured_bgp_peers.peers[item].state == "Established"
+  with_items: "{{bgp[ansible_hostname].peers}}"
+
+# Verify the correct BGP ASN is configured
+- assert:
+    that:
+      - configured_bgp_peers.as == {{item}}
+  with_items: "{{bgp[ansible_hostname].asn}}"
