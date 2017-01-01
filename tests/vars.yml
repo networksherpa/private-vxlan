@@ -71,50 +71,26 @@ bgp:
 vxrd:
   vnis: ["vni13", "vni24"]
   vlans: ["13", "24"]
-  service_node: "{{l3_interfaces.loopback.spine01.anycast}}"
-  leaf01: [l3_interfaces.loopback.leaf02.ipv4,
-           l3_interfaces.loopback.leaf03.ipv4,
-           l3_interfaces.loopback.leaf04.ipv4,
-           l3_interfaces.loopback.exit01.ipv4,
-           l3_interfaces.loopback.exit02.ipv4]
+  service_node: "10.255.255.10"
+  leaf01: ["10.1.1.2", "10.1.1.3", "10.1.1.4", "10.255.255.1", "10.255.255.2"]
 
-  leaf02: [l3_interfaces.loopback.leaf01.ipv4,
-           l3_interfaces.loopback.leaf03.ipv4,
-           l3_interfaces.loopback.leaf04.ipv4,
-           l3_interfaces.loopback.exit01.ipv4,
-           l3_interfaces.loopback.exit02.ipv4]
+  leaf02: ["10.1.1.1", "10.1.1.3", "10.1.1.4", "10.255.255.1", "10.255.255.2"]
 
-  leaf03: [l3_interfaces.loopback.leaf01.ipv4,
-           l3_interfaces.loopback.leaf02.ipv4,
-           l3_interfaces.loopback.leaf04.ipv4,
-           l3_interfaces.loopback.exit01.ipv4,
-           l3_interfaces.loopback.exit02.ipv4]
+  leaf03: ["10.1.1.2", "10.1.1.1", "10.1.1.4", "10.255.255.1", "10.255.255.2"]
 
-  leaf04: [l3_interfaces.loopback.leaf01.ipv4,
-           l3_interfaces.loopback.leaf02.ipv4,
-           l3_interfaces.loopback.leaf03.ipv4,
-           l3_interfaces.loopback.exit01.ipv4,
-           l3_interfaces.loopback.exit02.ipv4]
+  leaf04: ["10.1.1.2", "10.1.1.3", "10.1.1.1", "10.255.255.1", "10.255.255.2"]
 
-  exit01: [l3_interfaces.loopback.leaf01.ipv4,
-           l3_interfaces.loopback.leaf02.ipv4,
-           l3_interfaces.loopback.leaf03.ipv4,
-           l3_interfaces.loopback.leaf04.ipv4,
-           l3_interfaces.loopback.exit02.ipv4]
+  exit01: ["10.1.1.2", "10.1.1.3", "10.1.1.4", "10.1.1.1", "10.255.255.2"]
 
-  exit02: [l3_interfaces.loopback.leaf01.ipv4,
-           l3_interfaces.loopback.leaf02.ipv4,
-           l3_interfaces.loopback.leaf03.ipv4,
-           l3_interfaces.loopback.leaf04.ipv4,
-           l3_interfaces.loopback.exit01.ipv4]
+  exit02: ["10.1.1.2", "10.1.1.3", "10.1.1.4", "10.255.255.1", "10.1.1.2"]
 
 vxsnd:
-  anycast: l3_interfaces.loopback.spine01.anycast
-  peers: [l3_interfaces.loopback.spine01.ipv4, l3_interfaces.loopback.spine02.ipv4]
+  anycast: "10.255.255.10"
+  peers: ["10.100.100.1", "10.100.100.2"]
   spine01:
-    local_address: l3_interfaces.loopback.spine01.ipv4
+    local_address: "10.100.100.1"
   spine02:
-    local_address: l3_interfaces.loopback.spine02.ipv4
+    local_address: "10.100.100.2"
 
 clag:
   leaf01:
@@ -122,8 +98,8 @@ clag:
     role: "primary"
     system_mac: "44:39:39:ff:40:94"
     anycast: "10.10.10.1"
-    backup_ip: l3_interfaces.loopback.leaf02.ipv4
-    peer_ip: l3_interfaces.peerlink.leaf02
+    backup_ip: "10.1.1.2"
+    peer_ip: "169.254.1.2"
     peerlink_interface: "peerlink.4094"
 
   leaf02:
@@ -131,8 +107,8 @@ clag:
     role: "secondary"
     system_mac: "44:39:39:ff:40:94"
     anycast: "10.10.10.1"
-    backup_ip: l3_interfaces.loopback.leaf01.ipv4
-    peer_ip: l3_interfaces.peerlink.leaf01
+    backup_ip: "10.1.1.1"
+    peer_ip: "169.254.1.1"
     peerlink_interface: "peerlink.4094"
 
   leaf03:
@@ -140,8 +116,8 @@ clag:
     role: "primary"
     system_mac: "44:39:39:ff:40:95"
     anycast: "10.10.10.2"
-    backup_ip: l3_interfaces.loopback.leaf04.ipv4
-    peer_ip: l3_interfaces.peerlink.leaf04
+    backup_ip: "10.1.1.4"
+    peer_ip: "169.254.1.2"
     peerlink_interface: "peerlink.4094"
 
   leaf04:
@@ -149,8 +125,8 @@ clag:
     role: "secondary"
     system_mac: "44:39:39:ff:40:95"
     anycast: "10.10.10.2"
-    backup_ip: l3_interfaces.loopback.leaf03.ipv4
-    peer_ip: l3_interfaces.peerlink.leaf03
+    backup_ip: "10.1.1.3"
+    peer_ip: "169.254.1.1"
     peerlink_interface: "peerlink.4094"
 
   exit01:
@@ -158,8 +134,8 @@ clag:
     role: "primary"
     system_mac: "44:39:39:ff:40:96"
     anycast: "10.10.10.3"
-    backup_ip: l3_interfaces.loopback.exit02.ipv4
-    peer_ip: l3_interfaces.peerlink.exit02
+    backup_ip: "10.255.255.2"
+    peer_ip: "169.254.1.2"
     peerlink_interface: "peerlink.4094"
 
   exit02:
@@ -167,6 +143,6 @@ clag:
     system_mac: "44:39:39:ff:40:96"
     role: "secondary"
     anycast: "10.10.10.3"
-    backup_ip: l3_interfaces.loopback.exit01.ipv4
-    peer_ip: l3_interfaces.peerlink.exit01
+    backup_ip: "10.255.255.1"
+    peer_ip: "169.254.1.1"
     peerlink_interface: "peerlink.4094"
