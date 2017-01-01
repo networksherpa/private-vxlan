@@ -18,12 +18,12 @@
 - name: Validate Service Node Peers
   assert:
     that:
-      - ('{{item}}') in configured_vxsnd[peers]
-  with_items: "{{vxsnd[peers]|default([])}}"
+      - ('{{item}}') in configured_vxsnd["peers"]
+  with_items: "{{vxsnd["peers"]|default([])}}"
   when: vxsnd[ansible_hostname] is defined
 
 - name: Validate Correct Service Node Local Address
   assert:
     that:
-      - configured_vxsnd[local] == vxsnd[ansible_hostname].local_address
+      - configured_vxsnd["local"] == vxsnd[ansible_hostname].local_address
   when: vxsnd[ansible_hostname] is defined
