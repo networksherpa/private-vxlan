@@ -36,77 +36,77 @@ l3_interfaces:
       ipv4: "10.255.255.2"
 
 bgp:
-    spine01:
-      peers: ["swp1", "swp2", "swp3", "swp4"]
-      asn: 65531
+  spine01:
+    peers: ["swp1", "swp2", "swp3", "swp4"]
+    asn: 65531
 
-    spine02:
-      peers: ["swp1", "swp2", "swp3", "swp4"]
-      asn: 65532
+  spine02:
+    peers: ["swp1", "swp2", "swp3", "swp4"]
+    asn: 65532
 
-    leaf01:
-      peers: ["swp51", "swp52"]
-      asn: 65001
+  leaf01:
+    peers: ["swp51", "swp52"]
+    asn: 65001
 
-    leaf02:
-      peers: ["swp51", "swp52"]
-      asn: 65002
+  leaf02:
+    peers: ["swp51", "swp52"]
+    asn: 65002
 
-    leaf03:
-      peers: ["swp51", "swp52"]
-      asn: 65003
+  leaf03:
+    peers: ["swp51", "swp52"]
+    asn: 65003
 
-    leaf04:
-      peers: ["swp51", "swp52"]
-      asn: 65004
+  leaf04:
+    peers: ["swp51", "swp52"]
+    asn: 65004
 
-    exit01:
-      peers: ["swp51", "swp52"]
-      asn: 65501
+  exit01:
+    peers: ["swp51", "swp52"]
+    asn: 65501
 
-    exit02:
-      peers: ["swp51", "swp52"]
-      asn: 65502
+  exit02:
+    peers: ["swp51", "swp52"]
+    asn: 65502
 
 vxrd:
-    vnis: ["vni13", "vni24"]
-    vlans: ["13", "24"]
-    service_node: "{{l3_interfaces.loopback.spine01.anycast}}"
-    leaf01:  [l3_interfaces.loopback.leaf02.ipv4,
-              l3_interfaces.loopback.leaf03.ipv4,
-              l3_interfaces.loopback.leaf04.ipv4,
-              l3_interfaces.loopback.exit01.ipv4,
-              l3_interfaces.loopback.exit02.ipv4]
+  vnis: ["vni13", "vni24"]
+  vlans: ["13", "24"]
+  service_node: "{{l3_interfaces.loopback.spine01.anycast}}"
+  leaf01: [l3_interfaces.loopback.leaf02.ipv4,
+           l3_interfaces.loopback.leaf03.ipv4,
+           l3_interfaces.loopback.leaf04.ipv4,
+           l3_interfaces.loopback.exit01.ipv4,
+           l3_interfaces.loopback.exit02.ipv4]
 
-    leaf02:  [l3_interfaces.loopback.leaf01.ipv4,
-              l3_interfaces.loopback.leaf03.ipv4,
-              l3_interfaces.loopback.leaf04.ipv4,
-              l3_interfaces.loopback.exit01.ipv4,
-              l3_interfaces.loopback.exit02.ipv4]
+  leaf02: [l3_interfaces.loopback.leaf01.ipv4,
+           l3_interfaces.loopback.leaf03.ipv4,
+           l3_interfaces.loopback.leaf04.ipv4,
+           l3_interfaces.loopback.exit01.ipv4,
+           l3_interfaces.loopback.exit02.ipv4]
 
-    leaf03:  [l3_interfaces.loopback.leaf01.ipv4,
-              l3_interfaces.loopback.leaf02.ipv4,
-              l3_interfaces.loopback.leaf04.ipv4,
-              l3_interfaces.loopback.exit01.ipv4,
-              l3_interfaces.loopback.exit02.ipv4]
+  leaf03: [l3_interfaces.loopback.leaf01.ipv4,
+           l3_interfaces.loopback.leaf02.ipv4,
+           l3_interfaces.loopback.leaf04.ipv4,
+           l3_interfaces.loopback.exit01.ipv4,
+           l3_interfaces.loopback.exit02.ipv4]
 
-    leaf04:  [l3_interfaces.loopback.leaf01.ipv4,
-              l3_interfaces.loopback.leaf02.ipv4,
-              l3_interfaces.loopback.leaf03.ipv4,
-              l3_interfaces.loopback.exit01.ipv4,
-              l3_interfaces.loopback.exit02.ipv4]
+  leaf04: [l3_interfaces.loopback.leaf01.ipv4,
+           l3_interfaces.loopback.leaf02.ipv4,
+           l3_interfaces.loopback.leaf03.ipv4,
+           l3_interfaces.loopback.exit01.ipv4,
+           l3_interfaces.loopback.exit02.ipv4]
 
-    exit01:  [l3_interfaces.loopback.leaf01.ipv4,
-              l3_interfaces.loopback.leaf02.ipv4,
-              l3_interfaces.loopback.leaf03.ipv4,
-              l3_interfaces.loopback.leaf04.ipv4,
-              l3_interfaces.loopback.exit02.ipv4]
+  exit01: [l3_interfaces.loopback.leaf01.ipv4,
+           l3_interfaces.loopback.leaf02.ipv4,
+           l3_interfaces.loopback.leaf03.ipv4,
+           l3_interfaces.loopback.leaf04.ipv4,
+           l3_interfaces.loopback.exit02.ipv4]
 
-    exit02:  [l3_interfaces.loopback.leaf01.ipv4,
-              l3_interfaces.loopback.leaf02.ipv4,
-              l3_interfaces.loopback.leaf03.ipv4,
-              l3_interfaces.loopback.leaf04.ipv4,
-              l3_interfaces.loopback.exit01.ipv4]
+  exit02: [l3_interfaces.loopback.leaf01.ipv4,
+           l3_interfaces.loopback.leaf02.ipv4,
+           l3_interfaces.loopback.leaf03.ipv4,
+           l3_interfaces.loopback.leaf04.ipv4,
+           l3_interfaces.loopback.exit01.ipv4]
 
 vxsnd:
   anycast: l3_interfaces.loopback.spine01.anycast
