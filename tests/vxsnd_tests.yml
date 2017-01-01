@@ -9,14 +9,10 @@
     configured_vxsnd: "{{vxsndctl_output.stdout | from_json}}"
   when: vxsnd[ansible_hostname] is defined
 
-- debug: var=configured_vxsnd[anycast]
-
-- debug: var=vxsnd
-
 - name: Validate Service Node Anycast IP
   assert:
     that:
-      - configured_vxsnd[anycast] == vxsnd.anycast
+      - configured_vxsnd["anycast"] == vxsnd.anycast
   when: vxsnd[ansible_hostname] is defined
 
 - name: Validate Service Node Peers
