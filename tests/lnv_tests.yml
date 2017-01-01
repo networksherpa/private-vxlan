@@ -25,21 +25,43 @@
     that:
       - configured_vxlans[{{item}}|string].svcnodeip == vxrd.service_node
   with_items: "{{configured_vxlans.keys()}}"
+  when: vxrd[ansible_hostname] is defined
 
-- name: Validate Head End Replication Endpoints
+# This validates that the list of head end replication end points
+# Exactly matches the list of expected head end replication endpoints
+- name: Validate Replication Endpoints
   assert:
     that:
-      - {{item[0]}} in configured_vxlans[{{item[1]}}]|string].hrep_addrs
-    with_nested:
-      - {{vxrd[ansible_hostname]}}
-      - {{configured_vxlans.keys()}}
-#cumulus@leaf01:~$ sudo vxrdctl vxlans -j
-#{"24": {"dev_name": "vni24", "svcnodeip": "10.255.255.10", "hrep_addrs": ["10.10.10.3", "10.10.10.2"], "localip": "10.10.10.1"}, "13": {"dev_name": "vni13", "svcnodeip": "10.255.255.10", "hrep_addrs": ["10.10.10.3", "10.10.10.2"], "localip": "10.10.10.1"}}
+      - configured_vxlans[{{item}}|string].hrep_addrs|sort == vxrd[ansible_hostname]|sort
+  with_items: "{{configured_vxlans.keys()}}"
+  when: vxrd[ansible_hostname] is defined
 
-  #     - clag[ansible_hostname].priority == configured_clag["status"]["ourPriority"]
-  #     - clag[ansible_hostname].role == configured_clag["status"]["ourRole"]
-  #     - clag[ansible_hostname].system_mac == configured_clag["status"]["sysMac"]
-  #     - clag[ansible_hostname].anycast == configured_clag["status"]["vxlanAnycast"]
-  #     - clag[ansible_hostname].backup_ip == configured_clag["status"]["backupIp"]
-  #     - clag[ansible_hostname].peer_ip == configured_clag["status"]["peerIp"]
-  # when: clag[ansible_hostname] is defined
+- name: Get Service Node Data
+  command: vxsndctl show -j
+  register: vxsndctl_output
+  when: vxsnd[ansible_hostname] is defined
+
+- name: Process Service Node Data
+  set_fact:
+    configured_vxsnd: "{{vxsndctl_output.stdout | from_json}}"
+  when: vxsnd[ansible_hostname] is defined
+
+
+- name: Validate Service Node Anycast IP
+  assert:
+    that:
+      - configured_vxsnd[anycast] == vxsnd.anycast
+  when: vxsnd[ansible_hostname] is defined
+
+- name: Validate Service Node Peers
+  assert:
+    that:
+      - ('{{item}}') in configured_vxsnd[peers]
+  with_items: vxsnd[peers]
+  when: vxsnd[ansible_hostname] is defined
+
+- name: Validate Correct Service Node Local Address
+  assert:
+    that:
+      - configured_vxsnd[local] == vxsnd[ansible_hostname].local_address
+  when: vxsnd[ansible_hostname] is defined
