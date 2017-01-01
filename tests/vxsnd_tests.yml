@@ -19,7 +19,7 @@
   assert:
     that:
       - ('{{item}}') in configured_vxsnd["peers"]
-  with_items: "{{vxsnd["peers"]|default([])}}"
+  with_items: "{{vxsnd['peers]|default([])}}"
   when: vxsnd[ansible_hostname] is defined
 
 - name: Validate Correct Service Node Local Address
