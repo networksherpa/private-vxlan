@@ -7,5 +7,18 @@
     - include: bgp_tests.yml
     - include: interface_tests.yml
     - include: clag_tests.yml
-    - include: lnv_tests.yml
     - include: l3_ping_test.yml
+
+- hosts: leafs
+  become: yes
+  vars_file:
+    - vars.yml
+  tasks:
+    - include: vxrd_tests.yml
+
+- hosts: spines
+  become: yes
+  vars_file:
+    - vars.yml
+  tasks:
+    - include: vxsnd_tests.yml
