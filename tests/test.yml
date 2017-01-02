@@ -17,6 +17,7 @@
     - vars.yml
   tasks:
     - include: vxrd_tests.yml
+    - include: bridge_tests.yml
 
 - hosts: spines
   become: yes
