@@ -141,3 +141,44 @@ clag:
     anycast: "10.10.10.3"
     backup_ip: "10.255.255.1"
     peer_ip: "169.254.1.1"
+
+stp:
+  leaf01:
+    peerlink: [13, 24]
+    bond01: [13]
+    bond02: [24]
+    vni13: [13]
+    vni24: [24]
+
+  leaf01:
+    peerlink: [13, 24]
+    bond01: [13]
+    bond02: [24]
+    vni13: [13]
+    vni24: [24]
+
+  leaf03:
+    peerlink: [13, 24]
+    bond03: [13]
+    bond04: [24]
+    vni13: [13]
+    vni24: [24]
+
+  leaf04:
+    peerlink: [13, 24]
+    bond03: [13]
+    bond04: [24]
+    vni13: [13]
+    vni24: [24]
+
+  exit01:
+    peerlink: [13, 24]
+    bond01: [13]
+    bond02: [24]
+    vni13: [13]
+    vni24: [24]
+
+  exit02:
+    peerlink: [13, 24]
+    bond0: [13, 24]
+
