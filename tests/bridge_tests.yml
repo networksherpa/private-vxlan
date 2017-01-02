@@ -1,0 +1,13 @@
+---
+- name: Get Bridge VLANs
+  command: net show bridge vlan json
+  register: vlan_output
+  when: stp[ansible_hostname] is defined
+
+- name: Process Bridge Data
+  set_fact:
+    configured_vlans: "{{vlan_output.stdout | from_json}}"
+  when: stp[ansible_hostname] is defined
+
+
+- debug: var=configured_vlans
