@@ -150,7 +150,7 @@ stp:
     vni13: [13]
     vni24: [24]
 
-  leaf01:
+  leaf02:
     peerlink: [13, 24]
     bond01: [13]
     bond02: [24]
